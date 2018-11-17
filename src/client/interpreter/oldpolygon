@@ -1,0 +1,303 @@
+// public static void polygon(Vertex3D p1, Vertex3D p2, Vertex3D p3) {
+	// 	// Vertex3D screenP1 = transformToCamera(p1);
+	// 	// Vertex3D screenP2 = transformToCamera(p2);
+	// 	// Vertex3D screenP3 = transformToCamera(p3);
+	
+	// 	//getting colors
+	// 	Color v1_Color = p1.getColor();
+	// 	Color v2_Color = p2.getColor();
+	// 	Color v3_Color = p3.getColor();
+
+	// 	//initialization
+	// 	double transformedLineP1[] = new double[4];
+	// 	double transformedLineP2[] = new double[4];
+	// 	double transformedLineP3[] = new double[4];
+
+	// 	double lineVertice[] = new double[4];
+
+		
+	// 	//multiplying CTM 
+	// 	lineVertice[0] = p1.getX();
+	// 	lineVertice[1] = p1.getY();
+	// 	lineVertice[2] = p1.getZ();
+	// 	lineVertice[3] = 1;//vertices[0].getW()
+	// 	transformedLineP1 = CTM.multiply1by1Matrix(lineVertice); //4by4
+
+	// 	lineVertice[0] = p2.getX();
+	// 	lineVertice[1] = p2.getY();
+	// 	lineVertice[2] = p2.getZ();
+	// 	lineVertice[3] = 1;//vertices[0].getW()
+	// 	transformedLineP2 = CTM.multiply1by1Matrix(lineVertice);
+
+	// 	lineVertice[0] = p3.getX();
+	// 	lineVertice[1] = p3.getY();
+	// 	lineVertice[2] = p3.getZ();
+	// 	lineVertice[3] = 1;//vertices[0].getW()
+	// 	transformedLineP3 = CTM.multiply1by1Matrix(lineVertice);
+
+
+	// 	//multiplying camera space
+	// 	transformedLineP1 = cameraSpace.multiply1by1Matrix(transformedLineP1);
+	// 	transformedLineP2 = cameraSpace.multiply1by1Matrix(transformedLineP2);
+	// 	transformedLineP3 = cameraSpace.multiply1by1Matrix(transformedLineP3);
+
+	// 	//GETTING LIGHTING CALCULATION VARIABLE
+	// 	//------------------------------------------------------------------------
+	// 		double centerPoint[] = new double[3];
+	// 		centerPoint[0] = (transformedLineP1[0] + transformedLineP2[0] + transformedLineP3[0] )/ 3;
+	// 		centerPoint[1] = (transformedLineP1[1] + transformedLineP2[1] + transformedLineP3[1] )/ 3;
+	// 		centerPoint[2] = (transformedLineP1[2] + transformedLineP2[2] + transformedLineP3[2] )/ 3;
+
+	// 			//System.out.println("centerPoint is" + Arrays.toString(centerPoint));
+
+	// 		//get Normal Vector---------------------------------------------------------- LOOKS RIGHT
+
+	// 			double p2minusP1[] = new double[3];
+	// 			double p3minusP1[] = new double[3];
+	// 			double faceNormal[] = new double[3];
+
+
+	// 			//p2 - p1
+	// 			p2minusP1[0] = transformedLineP2[0] - transformedLineP1[0];
+	// 			p2minusP1[1] = transformedLineP2[1] - transformedLineP1[1];
+	// 			p2minusP1[2] = transformedLineP2[2] - transformedLineP1[2];
+
+	// 			//p3 - p1
+	// 			p3minusP1[0] = transformedLineP3[0] - transformedLineP1[0];
+	// 			p3minusP1[1] = transformedLineP3[1] - transformedLineP1[1];
+	// 			p3minusP1[2] = transformedLineP3[2] - transformedLineP1[2];
+
+	// 			//take cross product of (p2 - p1) X (p3 - p1)
+	// 			faceNormal[0] = p2minusP1[1]*p3minusP1[2] - p2minusP1[2]*p3minusP1[1]; 
+	// 			faceNormal[1] = - ( p2minusP1[0]*p3minusP1[2] - p2minusP1[2]*p3minusP1[0]);
+	// 			faceNormal[2] = p2minusP1[0]*p3minusP1[1] - p2minusP1[1]*p3minusP1[0];
+
+	// 			//System.out.println("cameraSourcePoint is" + Arrays.toString(cameraPoint));
+	// 			//System.out.println("lightSourcePoint is" + Arrays.toString(lightSourcePoint));
+	// 			//System.out.println("faceNormal is" + Arrays.toString(faceNormal));
+
+	// 			convertToUnitVector(faceNormal); //Now a unit vector
+			
+	// 			//System.out.println("faceNormal to unitVector is" + Arrays.toString(faceNormal) );
+
+	// 		//---------------------------------------------------------------------
+
+
+	// 		//Get view vector  ----------------------------------- Looks right
+	// 			double viewVectorP1[] = new double[3];
+	// 			// double viewVectorP2[] = new double[3];
+	// 			// double viewVectorP3[] = new double[3];
+
+	// 			viewVectorP1[0] = centerPoint[0] - cameraPoint[0];
+	// 			viewVectorP1[1] = centerPoint[1] - cameraPoint[1];
+	// 			viewVectorP1[2] = centerPoint[2] - cameraPoint[2];
+
+	// 			//System.out.println("viewVector is" + Arrays.toString(viewVectorP1));
+	// 			convertToUnitVector(viewVectorP1);
+
+	// 			// viewVectorP2[0] = transformedLineP2[0] - cameraPoint[0];
+	// 			// viewVectorP2[1] = transformedLineP2[1] - cameraPoint[1];
+	// 			// viewVectorP2[2] = transformedLineP2[2] - cameraPoint[2];
+	// 			// convertToUnitVector(viewVectorP2);
+
+	// 			// viewVectorP3[0] = transformedLineP3[0] - cameraPoint[0];
+	// 			// viewVectorP3[1] = transformedLineP3[1] - cameraPoint[1];
+	// 			// viewVectorP3[2] = transformedLineP3[2] - cameraPoint[2];
+	// 			// convertToUnitVector(viewVectorP3);
+	// 		//--------------------------------------------------------------
+
+	// 		//get left light Vector --------------------------------- looks right
+	// 			double leftLightVectorP1[] = new double[3];
+	// 			// double leftLightVectorP2[] = new double[3];
+	// 			// double leftLightVectorP3[] = new double[3];
+
+
+	// 			leftLightVectorP1[0] = lightSourcePoint[0] - centerPoint[0];
+	// 			leftLightVectorP1[1] = lightSourcePoint[1] - centerPoint[1];
+	// 			leftLightVectorP1[2] = lightSourcePoint[2] - centerPoint[2]; 
+
+
+	// 			convertToUnitVector(leftLightVectorP1);
+
+	// 			//System.out.println("lightviewVector is" + Arrays.toString(leftLightVectorP1));
+
+	// 			// leftLightVectorP2[0] = lightSourcePoint[0] - transformedLineP2[0];
+	// 			// leftLightVectorP2[1] = lightSourcePoint[1] - transformedLineP2[1];
+	// 			// leftLightVectorP2[2] = lightSourcePoint[2] - transformedLineP2[2];
+
+	// 			// leftLightVectorP3[0] = lightSourcePoint[0] - transformedLineP3[0];
+	// 			// leftLightVectorP3[1] = lightSourcePoint[1] - transformedLineP3[1];
+	// 			// leftLightVectorP3[2] = lightSourcePoint[2] - transformedLineP3[2];     
+
+	// 		//---------------------------------------------------------------------
+
+	// 		//get right light Vector ---------------------------
+
+	// 			double rightLightVectorP1[] = new double[3];
+	// 			// double rightLightVectorP2[] = new double[3];
+	// 			// double rightLightVectorP3[] = new double[3];
+
+	// 			double dotProductN_leftLight1 = leftLightVectorP1[0] * faceNormal[0] + leftLightVectorP1[1] * faceNormal[1] + leftLightVectorP1[2] * faceNormal[2];
+	// 			// double dotProductN_leftLight2 = leftLightVectorP2[0] * faceNormal[0] + leftLightVectorP2[1] * faceNormal[1] + leftLightVectorP2[2] * faceNormal[2];
+	// 			// double dotProductN_leftLight3 = leftLightVectorP3[0] * faceNormal[0] + leftLightVectorP3[1] * faceNormal[1] + leftLightVectorP3[2] * faceNormal[2];
+
+	// 			// double dotProductV_rightLight2 = rightLightVectorP2[0] * viewVectorP2[0] + rightLightVectorP2[1] * viewVectorP2[1] + rightLightVectorP2[2] * viewVectorP2[2];
+	// 			// double dotProductv_rightLight3 = rightLightVectorP3[0] * viewVectorP3[0] + rightLightVectorP3[1] * viewVectorP3[1] + rightLightVectorP3[2] * viewVectorP3[2];
+
+
+	// 			rightLightVectorP1 = Transformation.multiplyBySingleDouble3x3(faceNormal, 2*dotProductN_leftLight1);
+	// 			rightLightVectorP1 = Transformation.subtract(rightLightVectorP1, 3, leftLightVectorP1);
+				
+	// 			double dotProductV_rightLight1 = rightLightVectorP1[0] * viewVectorP1[0] + rightLightVectorP1[1] * viewVectorP1[1] + rightLightVectorP1[2] * viewVectorP1[2];
+	// 			//System.out.println("dotProductN_leftLight1 is" + dotProductN_leftLight1);
+
+	// 			// rightLightVectorP2 = Transformation.multiplyBySingleDouble3x3(leftlightVectorP2, 2*dotProductN_leftLight2);
+	// 			// rightLightVectorP2 = Transformation.subtract(rightLightVectorP2, leftLightVectorP2);
+
+	// 			// rightLightVectorP3 = Transformation.multiplyBySingleDouble3x3(leftlightVectorP3, 2*dotProductN_leftLight3);
+	// 			// rightLightVectorP3 = Transformation.subtract(rightLightVectorP3, leftLightVectorP3);
+	// 			convertToUnitVector(rightLightVectorP1);
+
+	// 		//--------------------------------------------------
+
+
+	// 		//get fatt,i --------------------------------------------------------------------------------- Looks right
+	// 			double fatt_p1;
+	// 			// double fatt_p2;
+	// 			// double fatt_p3;
+
+	// 			double d_p1;
+	// 			// double d_p2;
+	// 			// double d_p3;
+
+	// 			d_p1 = Math.sqrt( 		 Math.pow( (centerPoint[0] - lightSourcePoint[0]), 2) +  
+	// 									 Math.pow( (centerPoint[1] - lightSourcePoint[1]), 2) +
+	// 									 Math.pow( (centerPoint[2] - lightSourcePoint[2]), 2) 
+	// 							);
+
+	// 			// double d_p2 = Math.sqrt( Math.pow( (transformedLineP2[0] - lightSourcePoint[0]), 2) +  
+	// 			// 						 Math.pow( (transformedLineP2[1] - lightSourcePoint[1]), 2) +
+	// 			// 						 Math.pow( (transformedLineP2[2] - lightSourcePoint[2]), 2) );
+
+	// 			// double d_p3 = Math.sqrt( Math.pow( (transformedLineP3[0] - lightSourcePoint[0]), 2) +  
+	// 			// 						 Math.pow( (transformedLineP3[1] - lightSourcePoint[1]), 2) +
+	// 			// 						 Math.pow( (transformedLineP3[2] - lightSourcePoint[2]), 2) );
+
+	// 			fatt_p1 = 1 / ( ac_A + ac_B*d_p1);
+	// 			// fatt_p2 = 1 / ( ac_A + ac_B*d_p2);
+	// 			// fatt_p3 = 1 / ( ac_A + ac_B*d_p3);
+
+	// 		//---------------------------------------------------------------------------------------------		
+
+	// 		//get light Calculation Color------------------------------------------------
+
+	// 			Color lightCalculationColorp1;
+	// 			// Color lightCalculationColorp2;
+	// 			// Color lightCalculationColorp3;
+
+	// 			//kdh*Iah
+	// 			double firstPartR = defaultColor.getR() * ambientLight.getR();
+	// 			double firstPartG = defaultColor.getG() * ambientLight.getG();
+	// 			double firstPartB = defaultColor.getB() * ambientLight.getB();
+				
+	// 			//kdh * ( N o Ll)
+	// 			double nextPartR_P1 = defaultColor.getR() * dotProductN_leftLight1;
+	// 			double nextPartG_P1 = defaultColor.getG() * dotProductN_leftLight1;
+	// 			double nextPartB_P1 = defaultColor.getB() * dotProductN_leftLight1;
+
+	// 			//System.out.println("kd*(n dot l ) is" + nextPartR_P1);
+
+	// 			// double nextPartR_P2 = defaultColor.getR() * dotProductN_leftLight2;
+	// 			// double nextPartG_P2 = defaultColor.getG() * dotProductN_leftLight2;
+	// 			// double nextPartB_P2 = defaultColor.getB() * dotProductN_leftLight2;
+
+	// 			// double nextPartR_P3 = defaultColor.getR() * dotProductN_leftLight3;
+	// 			// double nextPartG_P3 = defaultColor.getG() * dotProductN_leftLight3;
+	// 			// double nextPartB_P3 = defaultColor.getB() * dotProductN_leftLight3;
+
+	// 			// ks * ( V * Rl)^p
+
+	// 			double ks_VR = specularReflectionCoefficient * ( Math.pow(dotProductV_rightLight1, specularExponent));
+
+	// 			//System.out.println("ks_VR is" + ks_VR);
+
+	// 			//double ks_VR_P2 = specularReflectionCoefficient * ( Math.pow(dotProductV_rightLight2, p));
+	// 			//double ks_VR_P3 = specularReflectionCoefficient * ( Math.pow(dotProductV_rightLight3, p));
+
+	// 			double innerBracketR = nextPartR_P1 + ks_VR;
+	// 			double innerBracketG = nextPartG_P1 + ks_VR;
+	// 			double innerBracketB = nextPartB_P1 + ks_VR;
+
+	// 			//System.out.println("innerBracketR is" + innerBracketR);
+	// 			//System.out.println("fatti is" + fatt_p1);
+
+
+	// 			double summationR =  firstPartR + (lightColor.getR() * (fatt_p1 * innerBracketR)); //lgiht is 1,1,1
+	// 			double summationG =  firstPartG + (lightColor.getG() * (fatt_p1 * innerBracketG));
+	// 			double summationB =  firstPartB + (lightColor.getB() * (fatt_p1 * innerBracketB));
+
+
+	// 			lightCalculationColorp1 = new Color(summationR, summationG, summationB);
+															
+	// 			System.out.println("defaultColor is" + defaultColor.toString());
+	// 			System.out.println("ambientColor is" + ambientLight.toString());
+		
+
+											
+
+	// 		//---------------------------------------------------------------------------
+
+
+	// 	//------------------------------------------------------------------------
+
+
+	// 	/*-----------------*/
+	// 	//we need to clip
+	// 	int draw_flag = 0;
+	// 	if(CLIP_FLAG){
+	// 		//System.out.println("clip flag true!, camera command called");
+	// 		//draw_flag = polygonClipper(NEAR_PLANEZ, FAR_PLANEZ, transformedLineP1, transformedLineP2, transformedLineP3);
+	// 	}
+
+	// 	//multiplying perspective
+	// 	transformedLineP1 = perspectiveMatrix.multiply1by1Matrix(transformedLineP1);
+	// 	transformedLineP2 = perspectiveMatrix.multiply1by1Matrix(transformedLineP2);
+	// 	transformedLineP3 = perspectiveMatrix.multiply1by1Matrix(transformedLineP3);
+
+	// 	//multiply by 1/w
+	// 	transformedLineP1 = Transformation.multiplyBySingleDouble1x1(transformedLineP1, 1/(transformedLineP1[3]), 4, transformedLineP1[2]);
+	// 	transformedLineP2 = Transformation.multiplyBySingleDouble1x1(transformedLineP2, 1/(transformedLineP2[3]), 4, transformedLineP2[2]);
+	// 	transformedLineP3 = Transformation.multiplyBySingleDouble1x1(transformedLineP3, 1/(transformedLineP3[3]), 4, transformedLineP3[2]);
+
+	// 	//multiplying WorldToScreen
+	// 	transformedLineP1 = worldToScreen.multiply1by1Matrix(transformedLineP1);		
+	// 	transformedLineP2 = worldToScreen.multiply1by1Matrix(transformedLineP2);
+	// 	transformedLineP3 = worldToScreen.multiply1by1Matrix(transformedLineP3);
+
+	// 	//getting new points
+	// 	Vertex3D newP1 = new Vertex3D(transformedLineP1[0], transformedLineP1[1], transformedLineP1[2], lightCalculationColorp1);
+	// 	Vertex3D newP2 = new Vertex3D(transformedLineP2[0], transformedLineP2[1], transformedLineP2[2], lightCalculationColorp1);
+	// 	Vertex3D newP3 = new Vertex3D(transformedLineP3[0], transformedLineP3[1], transformedLineP3[2], lightCalculationColorp1);
+		
+	// 	//System.out.println("lightingColor is" + lightCalculationColorp1.toString());
+
+	// 	Polygon poly_p = Polygon.make(newP1, newP2, newP3);
+		
+	// 	if(	renderStyle == RenderStyle.FILLED){
+			
+	// 		//if(shadeStyle == ShadeStyle.FLAT){
+	// 		//	System.out.println("shadeStyle flat");
+	// 		//	flatShader.drawPolygon(poly_p, drawable);
+	// 		//} else {
+	// 			filledRenderer.drawPolygon(poly_p, drawable);//both drawable variables are depth-cueing, refer to client nextPage()
+	// 		//}	
+
+	// 	} else {
+			
+	// 		if(draw_flag == 0){
+	// 			wireframeRenderer.drawPolygon(poly_p, drawable); 
+	// 		}
+
+	// 	}
+
+	// }

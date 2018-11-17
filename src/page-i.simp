@@ -1,0 +1,28 @@
+{
+	ambient 0.25 0.25 0.25
+	{
+		translate 0 25 -32
+		camera  -1 -1 1 1 -0.1 -200
+		depth 0 -200 (0 0 0)
+		{
+			translate -20 20 -5
+			light 1, 1, 1, 1, 0
+		}
+	}
+	
+	
+	filled 
+	surface 0.9 0.8 0.6 0.4 16
+	{
+		translate -24 25 -80
+		scale 10 10 10
+		rotate Y -60
+		obj "pear_export"
+	}
+	{
+		translate 15 15 -80
+		scale 13 13 13
+		rotate Y -40
+		obj "pear_export"
+	}
+}
